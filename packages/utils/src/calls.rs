@@ -23,12 +23,14 @@ pub trait InitCallback: Serialize {
     ///
     /// # Arguments
     ///
+    /// * `admin` - Optional String holding the address an admin allowed to migrate the contract
     /// * `label` - String holding the label for the new contract instance
     /// * `code_id` - code ID of the contract to be instantiated
     /// * `code_hash` - String holding the code hash of the contract to be instantiated
     /// * `funds_amount` - Optional Uint128 amount of native coin to send with instantiation message
     fn to_cosmos_msg(
         &self,
+        admin: Option<String>,
         label: String,
         code_id: u64,
         code_hash: String,
@@ -50,6 +52,7 @@ pub trait InitCallback: Serialize {
             });
         }
         let init = WasmMsg::Instantiate {
+            admin,
             code_id,
             msg,
             code_hash,
@@ -226,10 +229,11 @@ mod tests {
         let amount = Uint128::new(1234);
 
         let cosmos_message: CosmosMsg =
-            FooInit { f1: 1, f2: 2 }.to_cosmos_msg(lbl.clone(), id, hash.clone(), Some(amount))?;
+            FooInit { f1: 1, f2: 2 }.to_cosmos_msg(None,lbl.clone(), id, hash.clone(), Some(amount))?;
 
         match cosmos_message {
             CosmosMsg::Wasm(WasmMsg::Instantiate {
+                admin: None,
                 code_id,
                 msg,
                 code_hash,
