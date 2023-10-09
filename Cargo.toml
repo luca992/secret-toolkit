@@ -57,10 +57,10 @@ members = ["packages/*"]
 [workspace.dependencies]
 schemars = { version = "0.8.11" }
 serde = { version = "1.0" }
-cosmwasm-std = { package = "secret-cosmwasm-std", git = "https://github.com/luca992/cosmwasm", branch = "instantiate-admin", features = [
+cosmwasm-std = { package = "secret-cosmwasm-std", git = "https://github.com/luca992/cosmwasm", branch = "update-serde-json-wasm", features = [
     "random",
 ] }
 cosmwasm-storage = { package = "secret-cosmwasm-storage", version = "1.1.10" }
 
 [patch.crates-io]
-cosmwasm-std = { package = "secret-cosmwasm-std", git = "https://github.com/luca992/cosmwasm", branch = "instantiate-admin" }
+cosmwasm-std = { package = "secret-cosmwasm-std", git = "https://github.com/luca992/cosmwasm", branch = "update-serde-json-wasm" }
